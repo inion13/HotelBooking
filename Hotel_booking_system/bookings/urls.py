@@ -1,6 +1,6 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import HotelViewSet, RoomViewSet, ReservationViewSet
+from .views import HotelViewSet, RoomViewSet, ReservationViewSet, HotelRoomListView
 
 router = DefaultRouter()
 

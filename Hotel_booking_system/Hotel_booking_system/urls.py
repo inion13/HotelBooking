@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 
-from bookings.views import CreateUserView #, HotelRoomListView
+from bookings.views import CreateUserView, HotelRoomListView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -11,5 +11,5 @@ urlpatterns = [
     path('refresh/', TokenRefreshView.as_view(), name='refresh'),
     path('verify/', TokenVerifyView.as_view(), name='verify'),
     path('register/', CreateUserView.as_view(), name='register'),
-    # path('room-list/', HotelRoomListView.as_view(), name='room-list'),
+    path('hotel-rooms/', HotelRoomListView.as_view(), name='hotel-room-list'),
 ]

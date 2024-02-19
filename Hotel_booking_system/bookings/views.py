@@ -19,20 +19,7 @@ class HotelViewSet(viewsets.ModelViewSet):
                             status=status.HTTP_403_FORBIDDEN)
 
 
-class RoomViewSet(viewsets.ModelViewSet):
-    queryset = Room.objects.all()
-    serializer_class = RoomSerializer
-    permission_classes = [IsAuthenticated]
-
-    def room_create(self, serializer):
-        if self.request.user.is_superuser:
-            serializer.save()
-        else:
-            return Response({"error": "Только суперпользователь может создавать комнаты."},
-                            status=status.HTTP_403_FORBIDDEN)
-
-
-class RoomListView(generics.ListAPIView):
+class HotelRoomListView(generics.ListAPIView):
     queryset = Room.objects.all()
     serializer_class = RoomSerializer
     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
@@ -49,9 +36,22 @@ class RoomListView(generics.ListAPIView):
         if capacity:
             queryset = queryset.filter(capacity=capacity)
         if room_type:
-
             queryset = queryset.filter(room_type=room_type)
         return queryset
+
+
+class RoomViewSet(viewsets.ModelViewSet):
+    queryset = Room.objects.all()
+    serializer_class = RoomSerializer
+    permission_classes = [IsAuthenticated]
+
+    def room_create(self, serializer):
+        if self.request.user.is_superuser:
+            serializer.save()
+        else:
+            return Response({"error": "Только суперпользователь может создавать комнаты."},
+                            status=status.HTTP_403_FORBIDDEN)
+
 
 
 class ReservationViewSet(viewsets.ModelViewSet):
